@@ -1,0 +1,124 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+class DocumentElement{
+    public:
+    virtual string render() =0;
+    virtual ~DocumentElement() {}
+};
+
+class TextElement: public DocumentElement{
+    private:
+    string text;
+
+    public: 
+    TextElement(string txt){
+        text = txt;
+    }
+    string render() override{
+        return text;
+    }
+};
+
+class ImageElement: public DocumentElement{
+    private:
+    string imagePath;
+
+    public:
+    ImageElement(string path){
+        imagePath = path;
+    }
+    string render() override{
+        return "[Image: " + imagePath + "]";
+    }
+};
+
+class NewLineElement : public DocumentElement{
+    public: 
+    string render() override{
+        return "\n";
+    }
+};
+
+class Document{
+    private:
+    vector<DocumentElement*> Docelements;
+
+    public:
+    void addElement(DocumentElement* element){
+        Docelements.push_back(element);
+    }
+    string renderDocument(){
+        string result;
+        for(auto element: Docelements){
+            result += element->render();
+        }
+        return result;
+    }
+};
+
+class Persitence{
+    public:
+    virtual void save(string data) = 0;
+};
+
+class FileStorgae: public Persitence{
+  public:
+  void save(string data) override{
+    ofstream outFile("document.txt");
+    if(outFile){
+        outFile << data;
+        outFile.close();
+        cout << "Document saved to document.txt" << endl;
+    }
+    else{
+        cout << "Error saving document." << endl;
+    }
+  }
+};
+
+class DocumentEditor{
+    private:
+    Document* document;
+    Persitence* storage;
+    string renderedDoc;
+
+    public:
+    DocumentEditor(Document* doc, Persitence* persitence){
+        document = doc;
+        storage = persitence;
+    }
+
+    void addText(string text){
+        document->addElement(new TextElement(text));
+    }
+    void addImage(string path){
+        document->addElement(new ImageElement(path));
+    }
+    void addNewLine(){
+        document->addElement(new NewLineElement());
+    }
+    string renderDocument(){
+        if(renderedDoc.empty()){
+            renderedDoc = document->renderDocument();
+        }
+        return renderedDoc;
+    }
+    void saveDocument(){
+        storage->save(renderDocument());
+    }
+};
+int main(){
+    Document* doc = new Document();
+    Persitence* storage = new FileStorgae();
+
+    DocumentEditor* editor = new DocumentEditor(doc, storage);
+    editor->addText("Hello, World!");    
+    editor->addNewLine();
+    editor->addImage("path/to/image.png");
+    editor->addNewLine();
+    editor->addText("This is a sample document.");   
+
+    cout<< editor->renderDocument() << "\n";
+    editor->saveDocument();
+}
