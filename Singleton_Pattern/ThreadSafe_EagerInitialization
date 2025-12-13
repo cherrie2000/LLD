@@ -1,0 +1,29 @@
+#include<bits/stdc++.h>
+#include <mutex>
+using namespace std;
+
+//Singleton Pattern
+//One class should have one object, and if it tries to create a new object it should provide the old object
+//Eager Initialization -  we create the instance at the time of class loading
+
+class Singleton{
+ private:
+
+ static Singleton* instance;
+ Singleton(){
+    cout<<"Calling Singleton Constructor\n";
+ }
+
+ public:
+  static Singleton* getInstance(){
+
+     return instance;
+   }
+};
+Singleton* Singleton::instance = new Singleton();
+
+int main(){
+   Singleton* s1 = Singleton::getInstance();
+    Singleton* s2 = Singleton::getInstance();
+    cout<< (s1 == s2);
+}
