@@ -1,0 +1,55 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+//Simple Factory
+
+class Burger{
+    public:
+    virtual void prepare()=0;
+    virtual ~Burger(){}
+};
+
+class ClassicBurger: public Burger{
+    public:
+    void prepare() override{
+        cout<< "Preparing your classic Burger"<<"\n";
+    }
+};
+
+class CheeseBurger : public Burger{
+    public:
+    void prepare() override{
+        cout<< "Preparing your cheese burger"<<"\n";
+    }
+};
+
+class ChickenBurger : public Burger{
+    public:
+    void prepare() override{
+        cout<< "Preparing your chicken burger"<<"\n";
+}
+};
+
+class BurgerFactory{
+    public:
+    Burger* createBurger(string type){
+        if(type=="classic"){
+            return new ClassicBurger();
+        }
+        else if(type=="cheese"){
+            return new CheeseBurger();
+        }
+        else if(type=="chicken"){
+            return new ChickenBurger();
+        }
+        else{
+            return nullptr;
+        }
+    }
+};
+
+int main(){
+    BurgerFactory* factory = new BurgerFactory();
+    Burger* burger =  factory->createBurger("cheese");
+    burger->prepare();
+}
