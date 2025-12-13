@@ -1,0 +1,178 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+//Simple Factory
+
+class Burger{
+    public:
+    virtual void prepare()=0;
+    virtual ~Burger(){}
+};
+
+class ClassicBurger: public Burger{
+    public:
+    void prepare() override{
+        cout<< "Preparing your classic Burger"<<"\n";
+    }
+};
+
+class CheeseBurger : public Burger{
+    public:
+    void prepare() override{
+        cout<< "Preparing your cheese burger"<<"\n";
+    }
+};
+
+class ChickenBurger : public Burger{
+    public:
+    void prepare() override{
+        cout<< "Preparing your chicken burger"<<"\n";
+}
+};
+
+class GarlicBread{
+    public:
+    virtual void prepare() =0;
+    virtual ~GarlicBread(){}
+};
+class ClassicGarlicBread: public GarlicBread{
+    public:
+    void prepare() override{
+        cout<< "Preparing your classic GarlicBread"<<"\n";
+    }
+};
+
+class CheeseGarlicBread : public GarlicBread    {
+    public:
+    void prepare() override{
+        cout<< "Preparing your cheese GarlicBread"<<"\n";
+    }
+};
+
+class ChickenGarlicBread : public GarlicBread{
+    public:
+    void prepare() override{
+        cout<< "Preparing your chicken GarlicBread"<<"\n";
+}
+};
+
+class ClassicWheatGarlicBread: public GarlicBread{
+    public:
+    void prepare() override{
+        cout<< "Preparing your classic GarlicBread"<<"\n";
+    }
+};
+
+class CheeseWheatGarlicBread : public GarlicBread    {
+    public:
+    void prepare() override{
+        cout<< "Preparing your cheese GarlicBread"<<"\n";
+    }
+};
+
+class ChickenWheatGarlicBread : public GarlicBread{
+    public:
+    void prepare() override{
+        cout<< "Preparing your chicken GarlicBread"<<"\n";
+}
+};
+class ClassicWheatBurger: public Burger{
+    public:
+    void prepare() override{
+        cout<< "Preparing your classic Burger"<<"\n";
+    }
+};
+
+class CheeseWheatBurger : public Burger{
+    public:
+    void prepare() override{
+        cout<< "Preparing your cheese burger"<<"\n";
+    }
+};
+
+class ChickenWheatBurger : public Burger{
+    public:
+    void prepare() override{
+        cout<< "Preparing your chicken burger"<<"\n";
+}
+};
+class BurgerFactory{
+    public:
+    virtual Burger* createBurger(string st)=0;
+    virtual GarlicBread* createGarlicBread(string st)=0;
+    virtual ~BurgerFactory(){};
+};
+
+class WheatBurgerFactory: public BurgerFactory{
+    public:
+    Burger* createBurger(string type) override{
+        if(type=="classic"){
+            return new ClassicWheatBurger();
+        }
+        else if(type=="cheese"){
+            return new CheeseWheatBurger();
+        }
+        else if(type=="chicken"){
+            return new ChickenWheatBurger();
+        }
+        else{
+            return nullptr;
+        }
+    }
+    GarlicBread* createGarlicBread(string type) override{
+        if(type=="classic"){
+            return new ClassicWheatGarlicBread();
+        }
+        else if(type=="cheese"){
+            return new CheeseWheatGarlicBread();
+        }
+        else if(type=="chicken"){
+            return new ChickenWheatGarlicBread();
+        }
+        else{
+            return nullptr;
+        }
+    }
+};
+
+class RegularBurgerFactory: public BurgerFactory{
+    public:
+    Burger* createBurger(string type) override{
+        if(type=="classic"){
+            return new ClassicBurger();
+        }
+        else if(type=="cheese"){
+            return new CheeseBurger();
+        }
+        else if(type=="chicken"){
+            return new ChickenBurger();
+        }
+        else{
+            return nullptr;
+        }
+    }
+    GarlicBread* createGarlicBread(string type) override{
+        if(type=="classic"){
+            return new ClassicGarlicBread();
+        }
+        else if(type=="cheese"){
+            return new CheeseGarlicBread();
+        }
+        else if(type=="chicken"){
+            return new ChickenGarlicBread();
+        }
+        else{
+            return nullptr;
+        }
+    }
+};
+
+int main(){
+    BurgerFactory* factory = new WheatBurgerFactory();
+    Burger* burger =  factory->createBurger("chicken");
+        burger->prepare();
+    BurgerFactory* regular = new RegularBurgerFactory();
+    GarlicBread* garlicbread = regular->createGarlicBread("cheese");
+    garlicbread->prepare();
+
+}
