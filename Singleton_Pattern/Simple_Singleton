@@ -1,0 +1,29 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+//Singleton Pattern
+//One class should have one object, and if it tries to create a new object it should provide the old object
+
+class Singleton{
+ private:
+
+ static Singleton* instance;
+
+ Singleton(){
+    cout<<"Calling Singleton Constructor\n";
+ }
+
+ public:
+  static Singleton* getInstance(){
+    if(instance == nullptr){
+        instance = new Singleton();
+    }
+     return instance;
+   }
+};
+Singleton* Singleton::instance = nullptr;
+int main(){
+   Singleton* s1 = Singleton::getInstance();
+    Singleton* s2 = Singleton::getInstance();
+    cout<< (s1 == s2);
+}
