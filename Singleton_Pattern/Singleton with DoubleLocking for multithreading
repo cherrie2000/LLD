@@ -1,0 +1,35 @@
+#include<bits/stdc++.h>
+#include <mutex>
+using namespace std;
+
+//Singleton Pattern
+//One class should have one object, and if it tries to create a new object it should provide the old object
+//Thread safe locking singleton , as if application supports multithreading so multiplle threads should not create multiple objects
+
+//Implementing threadSafeDoubleLockingSingleton below
+class Singleton{
+ private:
+
+ static Singleton* instance;
+   static mutex mtx;
+ Singleton(){
+    cout<<"Calling Singleton Constructor\n";
+ }
+
+ public:
+  static Singleton* getInstance(){
+    if(instance == nullptr){
+        lock_guard<mutex> lock(mtx);
+        if(instance == nullptr)
+        instance = new Singleton();
+    }
+     return instance;
+   }
+};
+Singleton* Singleton::instance = nullptr;
+mutex Singleton::mtx;
+int main(){
+   Singleton* s1 = Singleton::getInstance();
+    Singleton* s2 = Singleton::getInstance();
+    cout<< (s1 == s2);
+}
