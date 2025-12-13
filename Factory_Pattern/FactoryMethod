@@ -1,0 +1,98 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+//Simple Factory
+
+class Burger{
+    public:
+    virtual void prepare()=0;
+    virtual ~Burger(){}
+};
+
+class ClassicBurger: public Burger{
+    public:
+    void prepare() override{
+        cout<< "Preparing your classic Burger"<<"\n";
+    }
+};
+
+class CheeseBurger : public Burger{
+    public:
+    void prepare() override{
+        cout<< "Preparing your cheese burger"<<"\n";
+    }
+};
+
+class ChickenBurger : public Burger{
+    public:
+    void prepare() override{
+        cout<< "Preparing your chicken burger"<<"\n";
+}
+};
+class ClassicWheatBurger: public Burger{
+    public:
+    void prepare() override{
+        cout<< "Preparing your classic Burger"<<"\n";
+    }
+};
+
+class CheeseWheatBurger : public Burger{
+    public:
+    void prepare() override{
+        cout<< "Preparing your cheese burger"<<"\n";
+    }
+};
+
+class ChickenWheatBurger : public Burger{
+    public:
+    void prepare() override{
+        cout<< "Preparing your chicken burger"<<"\n";
+}
+};
+class BurgerFactory{
+    public:
+    virtual Burger* createBurger(string st)=0;
+    virtual ~BurgerFactory(){};
+};
+
+class WheatBurgerFactory: public BurgerFactory{
+    public:
+    Burger* createBurger(string type) override{
+        if(type=="classic"){
+            return new ClassicWheatBurger();
+        }
+        else if(type=="cheese"){
+            return new CheeseWheatBurger();
+        }
+        else if(type=="chicken"){
+            return new ChickenWheatBurger();
+        }
+        else{
+            return nullptr;
+        }
+    }
+};
+
+class RegularBurgerFactory: public BurgerFactory{
+    public:
+    Burger* createBurger(string type) override{
+        if(type=="classic"){
+            return new ClassicBurger();
+        }
+        else if(type=="cheese"){
+            return new CheeseBurger();
+        }
+        else if(type=="chicken"){
+            return new ChickenBurger();
+        }
+        else{
+            return nullptr;
+        }
+    }
+};
+
+int main(){
+    BurgerFactory* factory = new WheatBurgerFactory();
+    Burger* burger =  factory->createBurger("chicken");
+    burger->prepare();
+}
