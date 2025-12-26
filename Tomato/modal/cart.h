@@ -1,9 +1,9 @@
 #ifndef CART_H
 #define CART_H
 
-#include<iostream>
-#include<vector>
-#include<string>
+#include <iostream>
+#include <vector>
+#include <string>
 #include "Resteraunt.h"
 #include "MenuItem.h"
 #include <iterator>
@@ -11,7 +11,7 @@
 class Cart{
   private:
   Restaurant* res;
-  vector<MenuItem*> items;
+  vector<MenuItem> items;
   public:
   Cart(){
     res = nullptr;
@@ -24,7 +24,7 @@ class Cart{
     items.push_back(menu);
 
   }
-  const vector<MenuItem*>& getMenuItem() const{
+   vector<MenuItem>& getMenuItem(){
 
     return items;
   }
@@ -39,7 +39,7 @@ class Cart{
   void setRestaurant(Restaurant* r){
     res = r;
   }
-  const Restaurant* getRestaurant() const{
+ Restaurant* getRestaurant() const{
     return res;
   }
   void isClear() {
