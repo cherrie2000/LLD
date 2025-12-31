@@ -12,8 +12,8 @@ class User{
     Cart* cart;
 
     public:
-    User(int&id, string&name, string&address){
-        userId = id;
+    User(int id, string name, string address){
+        this->userId = id;
         this->name = name;
         this->address = address;
         cart = new Cart();

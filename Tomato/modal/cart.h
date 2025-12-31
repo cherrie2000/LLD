@@ -16,7 +16,7 @@ class Cart{
   Cart(){
     res = nullptr;
   }
-  void addMenuItem(const MenuItem* menu){
+  void addMenuItem(const MenuItem& menu){
     if(res==nullptr){
         cerr<<"Please select a restaurant\n";
         return;
@@ -32,7 +32,7 @@ class Cart{
   const double getTotal() const{
     double sum = 0.0;
     for(auto it: items){
-        sum+=it->getPrice();
+        sum+=it.getPrice();
     }
     return sum;
   }

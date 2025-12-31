@@ -38,7 +38,9 @@ public:
             return false;
         }
     }
-
+    int getOrderId() {
+        return order_id;
+    }
     virtual string getType() const = 0;
 
       void setUser(User* u) {

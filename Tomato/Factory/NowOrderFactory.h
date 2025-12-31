@@ -1,5 +1,5 @@
-#ifndef NOWORDERFACTORY_H
-#define NOWORDERFACTORY_H
+#ifndef SCHEDULEORDERFACTORY_H
+#define SCHEDULEORDERFACTORY_H
 
 #include<iostream>
 #include "OrderFactory.h"
@@ -7,12 +7,11 @@
 #include "../modal/PickupOrder.h"
 using namespace std;
 class NowOrderFactor: public OrderFactory{
-    
 
 
     public:
     NowOrderFactor(){
-         
+
     }
 
     Order* CreateOrder(User* u, Cart* cart, Restaurant* rest, const vector<MenuItem>&menu, PaymentStrategy* payment_strategy, double total, const string&orderType) override{

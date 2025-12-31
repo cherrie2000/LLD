@@ -13,7 +13,7 @@ class OrderManager{
      }
      return instance;
    }
-   void addOrder(Order* order) const{
+   void addOrder(Order* order) {
     orders.push_back(order);
    }
        void listOrders() {

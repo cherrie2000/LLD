@@ -27,7 +27,7 @@ class RestaurantManager{
   vector<Restaurant*> getResteraunt(string loc){
     vector<Restaurant*> result;
     transform(loc.begin(), loc.end(), loc.begin(), ::tolower);
-    for(auto res:ResterauntList){
+    for(auto res:RestaurantList){
         string res_loc = res->getLocation();
         transform(res_loc.begin(), res_loc.end(), res_loc.begin(), ::tolower);
         if(res_loc==loc){

@@ -9,6 +9,7 @@
 #include "manager/ResterauntManager.h"
 #include "manager/OrderManager.h"
 #include "strategies/PaymentStrategy.h"
+#include "strategies/UPIPayment.h"
 #include "Factory/NowOrderFactory.h"
 #include "Factory/ScheduleOrderFactory.h"
 #include "services/NotificationService.h"
@@ -16,6 +17,7 @@
 using namespace std;
 
 class Tomato{
+    public:
     Tomato(){
         initializeRestaraunt();
     }
@@ -54,7 +56,7 @@ class Tomato{
         if(res == nullptr) cerr<<"Please select restaraunt\n";
         else{
             for(auto& item:res->getMenu()){
-                if(item->getCode() == item_code){
+                if(item.getCode() == item_code){
                     user->getCart()->addMenuItem(item);
                     break;
                 }
@@ -62,11 +64,11 @@ class Tomato{
         }
     }
 
-    Order* checkoutNow(User* u, string& orderType, PaymentStrategy* payment){
+    Order* checkoutNow(User* u,const string& orderType, PaymentStrategy* payment){
         return checkout(u, orderType, payment,new NowOrderFactor());
     }
 
-    Order* checkout(User* u, string& orderType, PaymentStrategy* payment, OrderFactory* orderfactory)
+    Order* checkout(User* u,const string& orderType, PaymentStrategy* payment, OrderFactory* orderfactory)
     {
         if(u->getCart()->isEmpty()) return nullptr;
         
@@ -75,7 +77,8 @@ class Tomato{
         vector<MenuItem> items = user_cart->getMenuItem();
         double total = user_cart->getTotal();
 
-        Order* order = orderfactory->CreateOrder(u,user_cart,res,items,payment,total,orderType);
+         Order* order = orderfactory->CreateOrder(u,user_cart,res,items,payment,total,orderType);
+         return order;
     }
 
     void payForOrder(User* user, Order* order) {
